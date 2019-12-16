@@ -1,3 +1,4 @@
+
 #include<time.h>
 #include<stdio.h>
 #include<stdlib.h>
@@ -15,33 +16,36 @@ struct file {
 time_t getTime();
 void printTime(time_t dateEntered);
 void enterNewStudent(struct file *fPtr, int count);
-void printStudents(struct file *fPtr,int count);    //ENTER/PRINT RECIEVES A STRUCT *POINTER PARAMETER
+void printStudents(struct file *fPtr,int count); //ENTER-PRINT RECIEVES A STRUCT *POINTER PARAMETER
  
 int main (void)
 {
-        int menuChoice;
-        int studentArrayCount = 0; // KEEP TRACK OF CORRECT CELL IN ARRAY FOR STUDENTS ADDED(Start at 0)
+    int menuChoice;
+    
+    // KEEP TRACK OF CORRECT CELL IN ARRAY FOR STUDENTS ADDED (Start at 0)
+    int studentArrayCount = 0; 
         
-	struct file students[19];  // ARRAY OF STRUCTS FOR UP TO 20 STUDENTS
-	struct file *fPtr = malloc(19 * sizeof(struct file) ); // CREATE POINTER TO PASS TO FUNCTIONS
+    // ARRAY OF STRUCTS FOR UP TO 20 STUDENTS
+    struct file students[19];
+	
+    // CREATE POINTER TO PASS TO FUNCTIONS
+    struct file *fPtr = malloc(19 * sizeof(struct file) ); 
+	
+    // POINTS TO STRUCT ARRAY OF STUDENTS    
+    fPtr = students; 
         
-	fPtr = students; // POINTS TO STRUCT ARRAY OF STUDENTS
-        
-        printf("0 End Program\n1 Enter New Student\n2 Print Students ");
-        scanf("%d", &menuChoice);
+    printf("0 End Program\n1 Enter New Student\n2 Print Students ");
+    scanf("%d", &menuChoice);
         
         while(menuChoice != 0){
             
             if(menuChoice == 1){
-                              
                 enterNewStudent( fPtr, studentArrayCount );
-                studentArrayCount++; //STUDENT ADDED - INCREMENT COUNT FOR NEXT CELL IN STUDENT ARRAY
+                studentArrayCount++; //INCREMENT COUNT FOR NEXT CELL IN STUDENT ARRAY
             }               
             else if(menuChoice == 2){
-                
                 printStudents(fPtr, studentArrayCount);
             }
-  
             printf("\n0 End Program\n1 Enter New Student\n2 Print Students:");
             scanf(" %d", &menuChoice);
         }
@@ -54,23 +58,22 @@ void printStudents(struct file *fPtr,int count )
     for(i = 0 ; i < count ; i++){
         	
         printf("\nSTUDENT NAME: %s %s\n", fPtr->firstName, fPtr->lastName);
-        
         printf("Test Grades:\n");
-        int i; // FOR LOOP
+        
+        int i; 
         int testCount = 1; // COUNTER FOR TEST #
+        
         for(i = 0 ; i < 5 ; i++){
-            
             printf("TEST #%d[%d Points]\n",testCount ,fPtr->testGrades[i]);
             testCount++;
-        }
-	    printf("Final Grade is [%s]\n", fPtr->studentGrade);
+        }      
+	printf("Final Grade is [%s]\n", fPtr->studentGrade);
 
         printTime(fPtr->timeStamp);
-        fPtr++; //INCREMENT TO NEXT STUDENT IN ARRAY
+        //INCREMENT TO NEXT STUDENT IN ARRAY
+        fPtr++; 
     }
-
     return;
-
 }
 
 void enterNewStudent(struct file *fPtr, int count ){
@@ -86,15 +89,14 @@ void enterNewStudent(struct file *fPtr, int count ){
                 printf("Enter Student Letter Grade For Semester:");
                 scanf("%s", fPtr->studentGrade); 
                 
-                printf("Enter the Score For The 5 Tests Given: ");              
+                printf("Enter the Score For The 5 Tests Given: ");    
+                
                 int i;
                 for(i = 0 ; i < 5 ; i++){
-
                         printf("Enter Score For Test[%d]:",++i);
                         i--;
                         scanf("%d", &fPtr->testGrades[i]);
-                }      
-                
+                }                
                 fPtr->timeStamp = getTime();
                 
                 return;
@@ -119,3 +121,5 @@ void printTime(time_t dateEntered ){
 
     return;
 }
+
+
