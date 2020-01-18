@@ -9,10 +9,10 @@ struct file {
     char lastName[50];
     char studentGrade[5]; // 1 LETTER GRADE PER STUDENT
     int  testGrades[4];   // 5 TESTS GIVEN
-    time_t timeStamp;
+    time_t timeStamp;     // data type in the C library defined for storing system time values
 	
 };
-
+//FUNCTION DECLARATIONS
 time_t getTime();
 void printTime(time_t dateEntered);
 void enterNewStudent(struct file *fPtr, int count);
